@@ -12,7 +12,6 @@ import entity.Product;
 public class ProductDao {
 
 	private static final String SQL_SELECT_ALL = "SELECT * FROM products ORDER BY product_id";
-	private static final String SQL_INSERT = "INSERT INTO products (product_name, price) VALUES (?, ?)";
 
 	Connection connection;
 	
@@ -34,19 +33,6 @@ public class ProductDao {
 			throw new RuntimeException(e);
 		}
 		return list;
-	}
-
-	public void register(Product product) {
-		try (PreparedStatement stmt = connection.prepareStatement(SQL_INSERT)) {
-			stmt.setString(1, product.getProductName());
-			stmt.setInt(2, product.getPrice());
-			stmt.executeUpdate();
-			
-			return;
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
 	}
 	
 	public Connection getConnection() {
